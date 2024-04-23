@@ -12,7 +12,7 @@ public class Prob3 {
 		int inputNum;
 		int result = 0;
 		
-		System.out.println("숫자를 입력하세요: ");
+		System.out.print("숫자를 입력하세요: ");
 		inputNum = scanner.nextInt();
 		
 		for(int i=0; i<inputNum+1; i++) {
