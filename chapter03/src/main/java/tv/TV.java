@@ -48,6 +48,8 @@ public class TV {
 	public void channel(boolean up) {
 		if (up) {
 			this.channel++;
+		} else {
+			this.channel--;
 		}
 	}
 	
@@ -64,16 +66,17 @@ public class TV {
 	public void volume(boolean up) {
 		if (up) {
 			this.volume++;
+		} else {
+			this.volume--;
 		}
 	}
 	
 	public void status() {
 		if (power) {
-			
+			System.out.println("power["+power+"]=on , channel = "+getChannel()+", volume = "+getVolume());
 		} else {
-			
+			System.out.println("power["+power+"]=off,  channel = "+getChannel()+", volume = "+getVolume());
 		}
-		System.out.println();
 	}
 
 }
