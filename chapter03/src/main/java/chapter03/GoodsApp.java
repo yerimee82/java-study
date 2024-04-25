@@ -4,12 +4,12 @@ public class GoodsApp {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Goods camera = new Goods();
+		Goods camera = new Goods("nikon", 400000, 10, 20);
 		
-		camera.setName("nikon");
-		camera.setPrice(400000);
-		camera.setCountSold(10);
-		camera.setCountStock(20);
+//		camera.setName("nikon");
+//		camera.setPrice(400000);
+//		camera.setCountSold(10);
+//		camera.setCountStock(20);
 		
 		/* 방법 1 */
 		System.out.println("상품이름 : " +camera.getName());
