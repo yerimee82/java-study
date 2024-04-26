@@ -7,5 +7,19 @@ public class StringTest01 {
 
         // "hello"
         System.out.println("\"hello\"");
+
+        // \t : tab
+        // \r : carriage return
+        // \n : newline
+        // \b : beep
+
+        System.out.print("hello\tworld\n");
+        System.out.println("hello\tworld");
+
+        // '
+        char c = '\'';
+        System.out.println(c);
+
+
     }
 }
