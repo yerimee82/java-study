@@ -7,7 +7,6 @@ public class ArrayUtil {
 		for(int i=0; i<a.length; i++) {
 			result[i] = a[i];
 		}
-		
 		return result;
 	}
 	
