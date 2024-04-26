@@ -7,7 +7,7 @@ public class Prob2 {
 		bird01.fly();
 		bird01.sing();
 		System.out.println( bird01 );
-		
+
 		Bird bird02 = new Sparrow();
 		bird02.setName( "짹짹이" );
 		bird02.fly();
