@@ -1,4 +1,4 @@
-package paint;
+package com.poscodx.paint.shap;
 
 public class Triangle extends Shape{
 	@Override

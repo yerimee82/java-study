@@ -1,6 +1,13 @@
-package paint;
+package com.poscodx.paint.main;
 
 import java.util.PrimitiveIterator.OfDouble;
+
+import com.poscodx.paint.i.Drawable;
+import com.poscodx.paint.point.ColorPoint;
+import com.poscodx.paint.point.Point;
+import com.poscodx.paint.shap.Circle;
+import com.poscodx.paint.shap.Shape;
+import com.poscodx.paint.text.GraphicText;
 
 public class Main {
 
