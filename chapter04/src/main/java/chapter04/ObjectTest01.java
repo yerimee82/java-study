@@ -13,5 +13,5 @@ public class ObjectTest01 {
 		System.out.println(point.toString());   // getClass().toString() + "@" + hashcode() 
 		System.out.println(point);
 	}
-
+	
 }
