@@ -25,7 +25,7 @@ public class MyStack {
     }
 
     public boolean isEmpty() throws MyStackException {
-        if (top == -1) throw new MyStackException(getClass() + ": stack is empty");
+        if (top == -1) throw new MyStackException("stack is empty");
         return false;
     }
 
