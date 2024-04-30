@@ -7,8 +7,11 @@ public class FileCopy {
         InputStream is = null;
         OutputStream os = null;
         try {
-            is = new FileInputStream("poo.jpg");
-            os = new FileOutputStream("poo.copy.jpg");
+            String path = FileReaderTest.class.getResource("").getPath();
+            String desiredPath = path.replace("/target/classes/io/", "/");
+
+            is = new FileInputStream(desiredPath + "poo.jpg");
+            os = new FileOutputStream(desiredPath + "poo.copy.jpg");
 
             int data = -1;
             while((data = is.read()) != -1) {
