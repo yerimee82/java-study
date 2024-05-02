@@ -58,7 +58,7 @@ public class RequestHandler extends Thread {
                  * SimpleHttpServer 에서는 무시(400 Bad Request)
                  *  */
                 // 400 에러
-                getResponse400BadRequest(outputStream, tokens);
+                getResponse400BadRequest(outputStream, tokens[2]);
             }
         } catch (Exception ex) {
             consoleLog("error:" + ex);
@@ -98,8 +98,29 @@ public class RequestHandler extends Thread {
 		outputStream.write(body);
     }
 
+    private static void getResponse400BadRequest(OutputStream outputStream, String protocol) throws IOException {
+        File file = new File(DOCUMENT_ROOT + "/error/400.html");
+        if(!file.exists()) {
+            getResponse404Error(outputStream, protocol);
+            return;
+        }
+
+        byte[] body = Files.readAllBytes(file.toPath());
+        String contentType = Files.probeContentType(file.toPath());
+
+        outputStream.write((protocol + "400 Bad Request\r\n").getBytes());
+        outputStream.write(("Content-Type:" + contentType+"; charset=utf-8\r\n").getBytes("UTF-8"));
+        outputStream.write("\r\n".getBytes());
+        outputStream.write(body);
+
+    }
+
     private static void getResponse404Error(OutputStream outputStream, String protocol) throws IOException {
         File file = new File(DOCUMENT_ROOT + "/error/404.html");
+        if(!file.exists()) {
+            System.out.println("file not found:" + file.getAbsolutePath());
+            return;
+        }
 
         byte[] body = Files.readAllBytes(file.toPath());
         String contentType = Files.probeContentType(file.toPath());
@@ -108,19 +129,6 @@ public class RequestHandler extends Thread {
         outputStream.write(("Content-Type:" + contentType+"; charset=utf-8\r\n").getBytes("UTF-8"));
         outputStream.write("\r\n".getBytes());
         outputStream.write(body);
-    }
-
-    private static void getResponse400BadRequest(OutputStream outputStream, String[] tokens) throws IOException {
-        File file = new File(DOCUMENT_ROOT + "/error/400.html");
-
-        byte[] body = Files.readAllBytes(file.toPath());
-        String contentType = Files.probeContentType(file.toPath());
-
-        outputStream.write((tokens[2] + "400 Bad Request\r\n").getBytes());
-        outputStream.write(("Content-Type:" + contentType+"; charset=utf-8\r\n").getBytes("UTF-8"));
-        outputStream.write("\r\n".getBytes());
-        outputStream.write(body);
-
     }
 
     public void consoleLog(String message) {
