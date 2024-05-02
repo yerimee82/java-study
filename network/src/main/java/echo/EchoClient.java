@@ -4,10 +4,12 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Scanner;
 
 public class EchoClient {
     private static final String SERVER_IP = "127.0.0.1";
+
     public static void main(String[] args) {
         Scanner scanner = null;
         Socket socket = null;
@@ -21,26 +23,31 @@ public class EchoClient {
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 
-            while(true) {
+            while (true) {
                 System.out.print(">>");
                 String line = scanner.nextLine();
-                if("exit".equals(line)) {
+                if ("exit".equals(line)) {
                     break;
                 }
 
                 pw.println(line);
                 String data = br.readLine();
-                if(data == null) {
-                    log("suddenly closed by server");
+                if (data == null) {
+                    log("closed by server");
                     break;
                 }
                 System.out.println("<<" + data);
             }
-        } catch (IOException e) {
+        } catch (SocketException e) {
+            log("Socket Exception: " + e);
+        }
+        catch (IOException e) {
             log("error" + e);
         } finally {
             try {
-                if(socket != null && !socket.isClosed()) {
+                assert scanner != null;
+                scanner.close();
+                if (socket != null && !socket.isClosed()) {
                     socket.close();
                 }
             } catch (IOException e) {
@@ -49,7 +56,8 @@ public class EchoClient {
         }
 
     }
+
     private static void log(String message) {
-        System.out.println("[EchoClient] " +message);
+        System.out.println("[EchoClient] " + message);
     }
 }
