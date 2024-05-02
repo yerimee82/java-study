@@ -50,6 +50,14 @@ public class TCPServer {
 
                 // 6. 데이터 쓰기
                 os.write(data.getBytes(StandardCharsets.UTF_8));
+
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                os.write(data.getBytes("utf-8"));
             }
 
         } catch (SocketException e) {

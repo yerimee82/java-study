@@ -5,7 +5,6 @@ import java.lang.annotation.Documented;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.file.Files;
-import java.nio.file.AccessDeniedException;
 
 public class RequestHandler extends Thread {
     private Socket socket;
