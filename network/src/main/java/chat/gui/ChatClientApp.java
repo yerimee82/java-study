@@ -1,6 +1,5 @@
 package chat.gui;
 
-import chat.ChatClientThread;
 import chat.ChatServer;
 
 import java.io.*;
@@ -45,23 +44,13 @@ public class ChatClientApp {
             new ChatWindow(name, socket).show();
 
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
-            pw.println("join:"+name+"\r\n");
+            pw.println("join:"+name);
 
         } catch (SocketException e) {
             log(name + "님이 나가셨습니다.");
         } catch (IOException e) {
             log(name + "님이 나가셨습니다.");
-        } finally {
-            try {
-                // 10. 자원 정리
-                if (socket != null && !socket.isClosed()) {
-                    socket.close();
-                }
-            } catch (IOException e) {
-                log("error:" + e);
-            }
         }
-
     }
 
     public static void log(String message) {

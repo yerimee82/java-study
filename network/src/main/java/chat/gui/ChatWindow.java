@@ -45,7 +45,6 @@ public class ChatWindow {
 
         // ChatClientThread 시작
         new ChatClientThread(socket).start();
-
     }
 
     public void show() {
@@ -90,6 +89,7 @@ public class ChatWindow {
                 System.exit(0);
             }
         });
+
         frame.setVisible(true);
         frame.pack();
 
@@ -106,18 +106,8 @@ public class ChatWindow {
             pw.println("quit:");
             pw.flush();
         }
-        catch (SocketException e) {
-            ChatServer.log("Socket Exception:" + e);
-        } catch (IOException e) {
+        catch (IOException e) {
             ChatServer.log("error:" + e);
-        } finally {
-            try {
-                if (socket != null && !socket.isClosed()) {
-                    socket.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -132,18 +122,8 @@ public class ChatWindow {
             // send 시 텍스트 창 초기화 및 커서 focus
             textField.setText("");
             textField.requestFocus();
-        } catch (SocketException e) {
-            ChatServer.log("Socket Exception:" + e);
         } catch (IOException e) {
             ChatServer.log("error:" + e);
-        } finally {
-            try {
-                if (socket != null && !socket.isClosed()) {
-                    socket.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -169,7 +149,10 @@ public class ChatWindow {
                     message = bufferedReader.readLine();
                     updateTextArea(message);
                 }
-            } catch (IOException e) {
+            } catch (SocketException e) {
+                ChatClient.log("socket error:" + e);
+            }
+            catch (IOException e) {
                 ChatClient.log("error:" + e);
             } finally {
                 try {
