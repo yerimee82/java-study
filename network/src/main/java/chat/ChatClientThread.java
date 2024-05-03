@@ -8,20 +8,18 @@ import java.nio.charset.StandardCharsets;
 
 public class ChatClientThread extends Thread {
     private Socket socket;
-    private  BufferedReader bufferedReader;
 
-    public ChatClientThread(Socket socket, BufferedReader bufferedReader){
+    public ChatClientThread(Socket socket){
         this.socket = socket;
-        this.bufferedReader = bufferedReader;
     }
 
     @Override
     public void run() {
         try {
             String message = null;
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
             while (true) {
-                // 채팅방에 쓰기
+                // 메시지 읽어서 채팅방에 쓰기
                 message = bufferedReader.readLine();
                 System.out.println(message);
             }

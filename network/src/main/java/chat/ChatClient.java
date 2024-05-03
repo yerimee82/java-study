@@ -44,7 +44,7 @@ public class ChatClient {
             }
 
             // 6. ChatClientThread 시작
-            new ChatClientThread(socket, br).start();
+            new ChatClientThread(socket).start();
 
             // 7. 키보드 입력 처리
             while (true) {

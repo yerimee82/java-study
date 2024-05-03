@@ -80,14 +80,15 @@ public class ChatServerThread extends Thread {
         this.nickname = nickname;
         String data = nickname + "님이 입장하셨습니다. 즐거운 채팅 되세요.";
 
-        /* writer pool 에 저장 */
-        addWriter(writer);
         broadcast(data);
 
+        /* writer pool 에 저장 */
+        addWriter(writer);
+
         // ack
-        PrintWriter printWriter = (PrintWriter) writer;
-        printWriter.println("join:ok");
-        printWriter.flush();
+//        PrintWriter printWriter = (PrintWriter) writer;
+//        printWriter.println("join:ok");
+//        printWriter.flush();
     }
 
     private void doMessage(String message) {

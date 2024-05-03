@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ChatServer {
     public static final int PORT = 7000;
-    static List<Writer> listWriters;
     public static void main(String[] args) {
         ServerSocket serverSocket = null;
         Socket socket = null;
@@ -23,9 +22,10 @@ public class ChatServer {
             serverSocket.bind(new InetSocketAddress(hostAddress, PORT));
             log("연결 기다림 " + hostAddress + ":" + PORT);
 
-            // 3. 요청 대기
+            // 3. 요청 대기  -- 반복문을 통해 여러 대의 클라이언트 서버 요청 대기
             while(true) {
                 socket = serverSocket.accept();
+                // 각 스레드 생성하여 연결
                 new ChatServerThread(socket, listWriters).start();
             }
 
