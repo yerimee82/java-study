@@ -3,10 +3,7 @@ package test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 public class TCPServer {
@@ -16,6 +13,10 @@ public class TCPServer {
         try {
             //1. Server Socket 생성
             serverSocket = new ServerSocket();
+
+            // 1.1 FIN-WAIT2 -> TIME_WAIT 상태에서도 소켓 포트 할당이 가능하도록 하기 위해
+            serverSocket.setReuseAddress(true);
+
 
             // 2. 바인딩(binding)
             //  socket에 InetSocketAddress[InetAddress(IPAddress + Port)] 를 바인딩 한다.
@@ -49,7 +50,7 @@ public class TCPServer {
                 System.out.println("[server] received:" + data);
 
                 // 6. 데이터 쓰기
-                os.write(data.getBytes(StandardCharsets.UTF_8));
+//                os.write(data.getBytes(StandardCharsets.UTF_8));
 
                 try {
                     Thread.sleep(5000);
@@ -60,7 +61,8 @@ public class TCPServer {
                 os.write(data.getBytes("utf-8"));
             }
 
-        } catch (SocketException e) {
+        }
+        catch (SocketException e) {
             System.out.println("[server] SocketException :" + e);
         } catch (IOException e) {
             System.out.println("[server] error: " + e);
