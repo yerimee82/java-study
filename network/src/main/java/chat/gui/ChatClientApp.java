@@ -18,7 +18,7 @@ public class ChatClientApp {
         // 1. 키보드 연결
         scanner = new Scanner(System.in);
 
-        // 5. join 프로토콜
+        // 2. 닉네임 입력받기
         while (true) {
             System.out.print("닉네임>>");
             name = scanner.nextLine();
@@ -31,7 +31,8 @@ public class ChatClientApp {
 
         scanner.close();
 
-        // 2. socket 생성
+
+        // 3. socket 생성
         Socket socket = new Socket();
 
         try {
@@ -43,8 +44,9 @@ public class ChatClientApp {
             // 4. 채팅 - GUI 오픈
             new ChatWindow(name, socket).show();
 
+            // 5. join
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
-            pw.println("join:"+name);
+            pw.println("join:"+name+"\r");
 
         } catch (SocketException e) {
             log(name + "님이 나가셨습니다.");

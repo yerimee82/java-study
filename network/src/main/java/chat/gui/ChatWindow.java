@@ -93,10 +93,6 @@ public class ChatWindow {
         frame.setVisible(true);
         frame.pack();
 
-        // IOStream 받아오기
-        // chatClientThread 생성
-
-
     }
 
     private void finish() {
@@ -116,20 +112,17 @@ public class ChatWindow {
             pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
 
             String message = textField.getText();
-            pw.println("message:"+ message);
-            pw.flush();
+            if(!message.isEmpty()) {
+                pw.println("message:"+ message+"\r");
+                pw.flush();
 
-            // send 시 텍스트 창 초기화 및 커서 focus
-            textField.setText("");
-            textField.requestFocus();
+                // send 시 텍스트 창 초기화 및 커서 focus
+                textField.requestFocus();
+                textField.setText("");
+            }
         } catch (IOException e) {
             ChatServer.log("error:" + e);
         }
-    }
-
-    private static void updateTextArea(String message) {
-        textArea.append(message);
-        textArea.append("\n");
     }
 
     private static class ChatClientThread extends Thread {
@@ -164,5 +157,9 @@ public class ChatWindow {
                 }
             }
         }
+    }
+    private static void updateTextArea(String message) {
+        textArea.append(message);
+        textArea.append("\n");
     }
 }
